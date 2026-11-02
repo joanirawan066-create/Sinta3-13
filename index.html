@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog Jurnal SINTA 3 — Tema Solar</title>
+<style>
+:root{--bg:#0c0604;--card:#1a0d07;--card2:#241008;--tx:#fff3e0;--mut:#d9b99a;--o:#ff7a00;--r:#e8281c;--y:#ffc800;--line:#4a2410}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:-2;width:100%;height:100%}
+.glow{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 80% -10%,rgba(255,122,0,.35),transparent 55%),radial-gradient(circle at 0% 100%,rgba(232,40,28,.25),transparent 50%)}
+.wrap{max-width:1180px;margin:auto;padding:0 18px}
+header.hero{padding:48px 0 28px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center}
+.badge{display:inline-block;background:linear-gradient(90deg,var(--r),var(--o));padding:4px 14px;border-radius:99px;font-size:.8rem;font-weight:700;letter-spacing:.06em}
+h1{font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.1;margin:14px 0;background:linear-gradient(90deg,var(--y),var(--o),var(--r));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);max-width:560px}
+.sun{width:100%;max-width:340px;margin:auto;animation:float 5s ease-in-out infinite}
+.sun .rays{transform-origin:200px 200px;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-12px)}}
+.intro{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-left:5px solid var(--o);border-radius:14px;padding:16px 20px;margin:10px 0 26px;display:grid;gap:4px}
+.intro b{color:var(--y)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.7rem;color:var(--o)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.tools input,.tools select{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:1rem}
+.tools input{flex:1;min-width:200px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{border:1px solid var(--o);background:transparent;color:var(--tx);padding:6px 14px;border-radius:99px;cursor:pointer;font-size:.9rem}
+.chip.on{background:linear-gradient(90deg,var(--r),var(--o));border-color:transparent;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;padding-bottom:40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column}
+.card:hover,.card:focus-visible{transform:translateY(-6px) scale(1.02);border-color:var(--o);box-shadow:0 12px 30px rgba(255,122,0,.3);outline:none}
+.card svg{display:block;width:100%;height:120px}
+.cb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cb h3{font-size:1.05rem;line-height:1.25}
+.tag{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:99px;background:rgba(255,122,0,.18);color:var(--y);margin-right:4px}
+.mut{color:var(--mut);font-size:.88rem}
+.more{margin-top:auto;color:var(--o);font-weight:700;font-size:.9rem}
+#detail{display:none;padding:26px 0 60px}
+.back{background:linear-gradient(90deg,var(--r),var(--o));border:0;color:#fff;padding:10px 20px;border-radius:99px;font-weight:700;cursor:pointer;font-size:1rem}
+.dh{margin:18px 0;border-radius:18px;overflow:hidden;border:1px solid var(--o);animation:zoom .4s ease}
+@keyframes zoom{from{transform:scale(.9);opacity:0}}
+.dh svg{width:100%;height:190px;display:block}
+.dt{padding:18px 22px;background:var(--card2)}
+.dt h2{font-size:clamp(1.4rem,3.5vw,2.1rem);color:var(--y)}
+.tbl{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cell{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cell.full{grid-column:1/-1}
+.cell small{display:block;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
+.warn{background:rgba(232,40,28,.15);border:1px solid var(--r);border-radius:12px;padding:12px 16px;margin-top:14px}
+.warn li{margin-left:18px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.nav button{background:var(--card);color:var(--tx);border:1px solid var(--o);padding:9px 16px;border-radius:99px;cursor:pointer}
+.link{display:inline-block;margin-top:14px;color:var(--y)}
+footer{border-top:1px solid var(--line);padding:22px 0 34px;color:var(--mut);font-size:.88rem;text-align:center}
+@media(max-width:760px){header.hero{grid-template-columns:1fr;text-align:center}.hero p{margin:auto}.sun{max-width:210px;order:-1}.stats{grid-template-columns:1fr 1fr}.tbl{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas><div class="glow"></div>
+
+<div id="home">
+<div class="wrap">
+<header class="hero">
+ <div>
+  <span class="badge">☀ SINTA 3 • KATALOG JURNAL</span>
+  <h1>Jurnal SINTA 3 — Sekilas Informasi Terpadu</h1>
+  <p>Daftar jurnal ilmiah terakreditasi SINTA 3 beserta ringkasan APC, jadwal terbit, bahasa, dan status indeksasi. Pilih kartu untuk melihat halaman detail.</p>
+ </div>
+ <svg class="sun" viewBox="0 0 400 400" aria-hidden="true">
+  <defs><radialGradient id="sg"><stop offset="0" stop-color="#fff6b0"/><stop offset=".5" stop-color="#ffc800"/><stop offset="1" stop-color="#ff5a00"/></radialGradient></defs>
+  <g class="rays" id="rays"></g>
+  <circle cx="200" cy="200" r="105" fill="url(#sg)"/>
+  <circle cx="200" cy="200" r="125" fill="none" stroke="#e8281c" stroke-width="5" stroke-dasharray="4 10"/>
+  <text x="200" y="228" text-anchor="middle" font-size="80" font-weight="800" fill="#7a1a00" font-family="system-ui">S3</text>
+ </svg>
+</header>
+<section class="intro">
+ <div>👤 <b>Joshua Irawan</b> — Siswa PKL Al Muhtadin Depok</div>
+ <div>🎓 Magang di bawah bimbingan <b>Pak Riadi Marta Dinata, S.Ti., M.Kom</b> (Kalab Komputer FSTT ISTN)</div>
+ <div>📚 Sumber data: <a class="link" style="margin:0" href="https://sinta.kemdiktisaintek.go.id/journals" target="_blank" rel="noopener">sinta.kemdiktisaintek.go.id/journals</a> • diperbarui 2 November 2026</div>
+</section>
+<div class="stats">
+ <div class="stat"><b id="s1">0</b>Jurnal</div>
+ <div class="stat"><b id="s2">0</b>APC Gratis</div>
+ <div class="stat"><b id="s3">0</b>Berbahasa Inggris Wajib</div>
+ <div class="stat"><b>0</b>Scopus Terverifikasi</div>
+</div>
+<div class="tools">
+ <input id="q" type="search" placeholder="Cari nama jurnal, penerbit, atau bidang…" aria-label="Cari jurnal">
+ <select id="sort" aria-label="Urutkan"><option value="0">Urut: Nomor</option><option value="1">Nama A–Z</option><option value="2">APC gratis dulu</option></select>
+</div>
+<div class="chips" id="chips"></div>
+<main class="grid" id="grid"></main>
+</div>
+</div>
+
+<div id="detail"><div class="wrap" id="dbody"></div></div>
+
+<footer><div class="wrap">Data ringkasan hasil verifikasi manual. Status Scopus &amp; quartile belum terverifikasi untuk seluruh jurnal; selalu cek ulang ke situs resmi jurnal dan SINTA sebelum mengirim naskah.</div></footer>
+
+<script>
+var CATS={agri:["Pertanian","🌾","#2e7d32"],tech:["Teknik &amp; Komputer","⚡","#ff7a00"],health:["Kesehatan","🩺","#c2185b"],edu:["Pendidikan &amp; Sosial","📖","#6a1b9a"],marine:["Perikanan &amp; Kelautan","🌊","#0277bd"],env:["Lingkungan &amp; Hayati","🌿","#00796b"],econ:["Ekonomi &amp; Bisnis","📈","#ef6c00"],geo:["Geomatika","🛰️","#455a64"]};
+// n,ab,cat,url,pISSN,eISSN,scope,apc,free?,freq,lang,publisher,review/publish,notes,sinta,enWajib
+var J=[
+["Jurnal Sapta Agrica","JSA","agri","https://jurnal.uniraya.ac.id/index.php/Agrica","—","2962-8210","Agroteknologi: pemuliaan tanaman, ilmu benih, agronomi, hortikultura, perlindungan tanaman, ilmu tanah, bioteknologi.","Rp0 tertulis, tetapi wajib bayar sebelum LOA — perlu konfirmasi",0,"2x/tahun • Mei, November","Abstrak ID &amp; EN","LPPM Universitas Nias Raya (juga disebut Fakultas Pertanian)","Durasi review &amp; publikasi tidak dinyatakan",["APC tidak konsisten: halaman biaya Rp0 namun ada pembayaran sebelum LOA.","Penyebutan unit penerbit tidak konsisten.","Author Guidelines memuat ruang lingkup teknologi informasi — minta template terbaru ke editor."],"3",0],
+["Andalas Journal of Electrical and Electronic Engineering Technology","AJEEET","tech","https://ajeeet.ft.unand.ac.id/index.php/ajeeet","—","2777-0079","Teknik tenaga listrik, energi terbarukan, telekomunikasi, sistem kendali, teknik komputer, biomedis, pendidikan teknik elektro.","Rp700.000 (setelah diterima)",0,"2x/tahun • Mei, November","Inggris (wajib)","Departemen Teknik Elektro, Fakultas Teknik, Universitas Andalas","Publikasi rata-rata 8 minggu (DOAJ)",["Penulis luar Indonesia waiver 100%; kolaborasi internasional diskon 50%.","Terdaftar di DOAJ, GARUDA, Crossref, dll."],"3",1],
+["Jurnal Kesehatan Mahardika","JKM","health","https://journal.mahardika.ac.id/index.php/jkm","2355-0716 (SINTA: 2614-1663)","2355-0724","Keperawatan, kebidanan, rekam medis, kesehatan masyarakat, kedokteran, farmasi, radiologi, manajemen RS.","Rp1.000.000 (setelah diterima); submission Rp0",0,"2x/tahun • Maret, September","Indonesia &amp; Inggris","LPPM STIKes Mahardika Cirebon","Reviewer 2–3 minggu; fast-track keputusan 4 minggu",["p-ISSN berbeda antara OJS dan SINTA — validasi lewat ISSN Portal.","Halaman OJS masih menampilkan sertifikat SINTA 5, profil SINTA menunjukkan SINTA 3.","Tersedia kemungkinan waiver biaya."],"3",0],
+["Dalton: Jurnal Pendidikan Kimia dan Ilmu Kimia","Dalton","edu","https://ojs.uniska-bjm.ac.id/index.php/daltonjurnal/index","2655-3554","2621-3060","Pendidikan kimia (media, strategi, evaluasi) serta kimia analitik, anorganik, fisik, organik, biokimia, kimia komputasi.","Rp750.000 (setelah diterima); submission Rp0",0,"3x/tahun • April, Agustus, Desember","Indonesia","UPT Publikasi &amp; Pengelolaan Jurnal UNISKA MAB, Banjarmasin","Publikasi rata-rata 12 minggu (DOAJ)",["SK 0110/C3/DT.05.00/2026 (Periode II 2025).","Submission sempat dihentikan sementara hingga akhir Juli 2026 karena migrasi sistem — konfirmasi sudah dibuka kembali.","Gunakan domain baru ojs2.uniska-bjm.ac.id dan template 2023."],"3",0],
+["JURIKOM (Jurnal Riset Komputer)","JURIKOM","tech","https://ejurnal.stmik-budidarma.ac.id/index.php/jurikom","2407-389X","2715-7393","Informatika, sistem informasi, SPK, AI, expert system, jaringan komputer, teknologi informasi.","Rp850.000; submission &amp; fast-track Rp0",0,"6x/tahun • Feb, Apr, Jun, Agu, Okt, Des","Inggris (diutamakan) &amp; Indonesia","LPPM Universitas Budi Darma, Medan","Review &amp; publikasi tidak dinyatakan",["SK 177/E/KPT/2024 (15 Oktober 2024).","Tampilan edisi terbaru berbeda antara halaman utama (Agustus) dan indeks (Oktober 2026)."],"3",0],
+["International Journal of Innovation in Enterprise System","IJIES","tech","http://ijies.sie.telkomuniversity.ac.id/index.php/IJIES","—","2580-3050","Enterprise systems, sistem informasi, teknik industri, manajemen: AI, big data, ERP, transformasi digital, supply chain.","Gratis (Rp0)",1,"2x/tahun • Januari, Juli","Belum dapat dipastikan","Telkom University (School of Industrial Engineering)","Publikasi sekitar 9–16 minggu",["Akreditasi SINTA 3 berlaku Vol. 6 No. 1 (2022) s.d. Vol. 10 No. 2 (2026).","Situs lama hanya arsip s.d. Vol. 9; gunakan domain baru Telkom University."],"3",0],
+["Computer Journal","CJ","tech","https://journal.ypmma.org/index.php/cj","2964-6200","2964-6219","Ilmu komputer, jaringan, HCI, AI/ML, rekayasa perangkat lunak, data science, keamanan siber, IoT, cloud, blockchain.","Rp650.000 (domestik) / USD 60 (internasional)",0,"2x/tahun • Februari, Agustus","Indonesia &amp; Inggris","Yayasan Pendidikan Mitra Mandiri Aceh (YPMMA)","Review ±14 hari; publikasi ±7 hari setelah diterima",["SK 355/DST/D.D1/HM.01.01/2026 (24 Juli 2026); berlaku Vol. 2 No. 1 (2024) s.d. Vol. 6 No. 2 (2028).","Penerimaan edisi Agustus 2026 ditutup; berikutnya direncanakan dibuka November 2026 — cek pengumuman.","Cetak fisik opsional +Rp500.000."],"3",0],
+["Torani Journal of Fisheries and Marine Science","TORANI","marine","https://journal.unhas.ac.id/index.php/torani/id/index","2621-5322","2615-6601","Perikanan tropis dan ilmu kelautan wilayah Indonesia &amp; Wallacea: biodiversitas, konservasi, akuakultur, ekonomi biru.","Gratis (Rp0)",1,"2x/tahun • Juni, Desember","Indonesia &amp; Inggris (metadata wajib Inggris)","Fakultas Ilmu Kelautan dan Perikanan, Universitas Hasanuddin","Double-blind, 2 reviewer; durasi tidak dinyatakan",["Riwayat resmi SINTA 4 (2018); profil SINTA kini SINTA 3, SK terbaru belum terverifikasi."],"3",0],
+["Jurnal ELTEK","ELTEK","tech","https://jurnal.polinema.ac.id/index.php/eltek/index","1693-4024","2355-0740","Teknik elektro: ketenagalistrikan, kendali, AI, komputer, telekomunikasi, biomedik, energi terbarukan, embedded systems.","Rp800.000 (10 hal. pertama) + Rp50.000/halaman berikutnya",0,"2x/tahun • April, Oktober","Inggris &amp; Indonesia (mulai Apr 2027 wajib Inggris)","Politeknik Negeri Malang","Rata-rata 4 minggu submission–publikasi (DOAJ)",["Akreditasi SINTA 3 efektif 7 April 2026, berlaku Vol. 21 No. 2 (2023) s.d. Vol. 26 No. 1 (2028).","APC naik dari Rp400.000 ke Rp800.000 mulai edisi Oktober 2026."],"3",1],
+["GEOID: Journal of Geodesy and Geomatics","GEOID","geo","https://journal.its.ac.id/index.php/geoid","1858-2281","2442-3998","Geodesi dan geomatika, pemetaan, penginderaan jauh, kadaster 3D, fotogrametri, kebencanaan.","Rp750.000 per artikel diterima; submission Rp0",0,"2x/tahun • Maret, September","Inggris (wajib, platform baru)","Departemen Teknik Geomatika, ITS","Review 4–6 minggu; produksi ±4 minggu",["Jadwal Februari–Agustus berasal dari OJS lama; gunakan Maret–September.","DOAJ masih mencatat USD 60; tarif internasional lama perlu konfirmasi."],"3",1],
+["Innovative Journal of Curriculum and Educational Technology","UJET","edu","https://journal.unnes.ac.id/journals/ujet","2252-7125","2502-4558","Pengembangan kurikulum dan teknologi pendidikan, pembelajaran digital, media, pendidikan vokasi.","Rp500.000; submission &amp; fast-track Rp0",0,"2x/tahun • Juni, November (arsip lama)","Indonesia &amp; Inggris","Program Pascasarjana, Universitas Negeri Semarang","Review maks. 8 minggu; publikasi rata-rata 24 minggu (DOAJ)",["Jadwal pada platform baru perlu dikonfirmasi.","Gunakan ISSN dari situs jurnal."],"3",0],
+["INASUA: Jurnal Teknologi Hasil Perikanan","INASUA","marine","https://ojs3.unpatti.ac.id/index.php/jinasua","—","2775-6343","Teknologi hasil perikanan: pascapanen, mikrobiologi, mutu &amp; keamanan produk, bioteknologi, pemanfaatan limbah.","Rp700.000 (setelah diterima); submission Rp0",0,"2x/tahun • Januari, Juli","Indonesia &amp; Inggris","Prodi Teknologi Hasil Perikanan, Universitas Pattimura","Reviewer ±3 minggu",["Tersedia kemungkinan waiver biaya.","Jangan mengisi p-ISSN berdasarkan perkiraan."],"3",0],
+["AGROISTA: Jurnal Agroteknologi","AGI","agri","https://jurnal.instiperjogja.ac.id/index.php/AGI/index","2597-3835","2684-7019","Agroteknologi dan perkebunan: pemuliaan, fisiologi, hama penyakit, pertanian organik, kesuburan tanah.","Gratis (Rp0) untuk artikel diterima",1,"2x/tahun • Mei, November","Indonesia &amp; Inggris (konfirmasi ke editor)","Institut Pertanian Stiper Yogyakarta","Target review ±4 minggu",["SK 156/C/C3/KPT/2026 (7 April 2026); berlaku Vol. 7 No. 1 (2023) s.d. Vol. 11 No. 2 (2027)."],"3",0],
+["Sriwijaya Journal of Environment","SJE","env","http://ojs.pps.unsri.ac.id/index.php/ppsunsri/index","2527-4961","2527-3809","Ilmu dan rekayasa lingkungan tropis: air &amp; limbah, remediasi, sampah, ekonomi sirkular, iklim, penginderaan jauh.","Gratis (tanpa biaya submission, halaman, warna)",1,"3x/tahun • Maret, Juli, November","Inggris (wajib)","Program Pascasarjana Universitas Sriwijaya &amp; IATPI","Keputusan pertama 4–8 minggu; DOAJ 24 minggu (estimasi lama)",["SK 79/E/KPT/2023; berlaku Vol. 7 No. 1 (2022) s.d. Vol. 11 No. 3 (2026) — pantau perpanjangan.","Scopus Citedness ≠ terindeks Scopus."],"3",1],
+["Bangun Desa: Jurnal Pengabdian Masyarakat","Bangun Desa","edu","https://ejournal.almaata.ac.id/index.php/LPPM","—","2988-4225","Pengabdian &amp; pemberdayaan masyarakat: kesehatan, ekonomi, pendidikan, agama, TI, sosial humaniora.","Rp1.000.000 (publikasi); submission Rp0",0,"2x/tahun • Juni, Desember","Abstrak ID &amp; EN","LPPM Universitas Alma Ata","Review &amp; publikasi tidak dinyatakan",["Bukan jurnal gratis.","Halaman utama masih Vol. 4 No. 2 (2025), padahal Vol. 5 No. 1 (2026) sudah terbit 30 Juni 2026."],"3",0],
+["Oikonomia: Jurnal Manajemen","Oikonomia","econ","https://journal.unas.ac.id/oikonamia","0215-143X","2797-8966","Ekonomi, bisnis, manajemen: SDM, keuangan, pemasaran, investasi, perbankan, kewirausahaan.","Rp650.000 (sumber sekunder — belum dikonfirmasi)",0,"2x/tahun • Januari, Juli","Indonesia &amp; Inggris (belum pasti)","Fakultas Ekonomi dan Bisnis, Universitas Nasional","Tidak dinyatakan",["APC belum terverifikasi dari halaman resmi — konfirmasi ke pengelola.","Label SINTA 4 pada artikel lama bukan bukti peringkat saat ini."],"3",0],
+["EPI International Journal of Engineering","EPI-IJE","tech","https://cot.unhas.ac.id/journals/index.php/epiije","2615-5109","2621-0541","Teknik secara luas: sipil, elektro, mesin, komputer, pendidikan teknik, kajian multidisiplin.","Gratis (Rp0)",1,"2x/tahun • Februari, Agustus","Inggris (wajib)","Center of Technology, Fakultas Teknik, Universitas Hasanuddin","Pemrosesan ±2–3 minggu",["Akreditasi berlaku Vol. 6 No. 1 (Feb 2023) s.d. Vol. 10 No. 2 (Agu 2027); nomor SK belum ditemukan."],"3",1],
+["Aquatic Science &amp; Management","JASM","marine","https://ejournal.unsrat.ac.id/v3/index.php/jasm","2337-4403","2337-5000","Kualitas perairan, limnologi, oseanografi, ekotoksikologi, perikanan, pengelolaan pesisir.","Rp850.000 (umum); mhs S1 UNSRAT Rp325.000; luar negeri gratis",0,"2x/tahun • April, Oktober","Indonesia &amp; Inggris","Universitas Sam Ratulangi","Review ±3–4 minggu",["SK 230/E/KPT/2022 (30 Desember 2022).","OJS 2 lama menyebut Rp525.000; gunakan Rp850.000 (OJS 3)."],"3",0],
+["3BIO: Journal of Biological Science, Technology and Management","3BIO","env","https://journal-itb.org/3bio","—","2655-8777","Ilmu hayati multidisiplin: ekologi, mikrobiologi, genetika, biologi molekuler, bioengineering, kehutanan.","Gratis (Rp0)",1,"2x/tahun • bulan tidak tetap (2026: April)","Inggris","School of Life Sciences and Technology, ITB","Keputusan review ±1 bulan; Online First",["SK 204/E/KPT/2022 mencatat periode hanya s.d. Vol. 6 No. 2 (2024); perpanjangan belum terverifikasi.","Double-blind, minimal 2 reviewer."],"3",1],
+["International Journal of Entrepreneurship and Sustainability Studies","IJEASS","econ","https://journals.researchsynergypress.com/index.php/ijeass","2807-1921","2807-1778","Kewirausahaan &amp; keberlanjutan, bisnis, akuntansi, keuangan, pemasaran, ekonomi syariah.","Submission Rp150.000 + APC Rp850.000 = Rp1.000.000",0,"2x/tahun • Juli, Desember","Inggris","FEB Universitas Islam Bandung (portal baru); sebelumnya Research Synergy Foundation","Double-blind; durasi tidak dinyatakan",["Portal baru: ejournals.unisba.ac.id.","SINTA menampilkan p-ISSN dan e-ISSN sama (2807-1778); gunakan data ISSN Portal."],"3",1],
+["SainETIn: Jurnal Sains, Energi, Teknologi, dan Industri","SainETIn","tech","https://journal.unilak.ac.id/index.php/SainETIn","2548-6888","2548-9445","Sains, energi, teknologi, industri: teknik elektro, sistem tenaga listrik, energi terbarukan.","Rp500.000; submission Rp0",0,"2x/tahun • Juni, Desember","Indonesia atau Inggris","Prodi Teknik Elektro, Universitas Lancang Kuning","Tidak dinyatakan; batas terima April (edisi Juni) &amp; Oktober (edisi Desember)",["Peringkat SINTA belum terkonfirmasi dari profil resmi — verifikasi ulang.","Nama bervariasi: SainETIn / SainETind."],"?",0]
+];
+var $=function(i){return document.getElementById(i)},cat="all";
+
+// ---- art (SVG banner per kategori) ----
+function art(j,h){var c=CATS[j[2]];var id="g"+Math.random().toString(36).slice(2,7);
+ var r="";for(var i=0;i<14;i++){r+='<rect x="396" y="-8" width="8" height="'+(h*0.9)+'" fill="#ffc800" opacity=".16" transform="rotate('+(i*13-85)+' 400 0)"/>'}
+ return '<svg viewBox="0 0 400 '+h+'" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a0805"/><stop offset=".55" stop-color="'+c[2]+'"/><stop offset="1" stop-color="#ff7a00"/></linearGradient></defs><rect width="400" height="'+h+'" fill="url(#'+id+')"/>'+r+'<circle cx="340" cy="'+(h*0.28)+'" r="'+(h*0.2)+'" fill="#ffc800" opacity=".85"/><text x="24" y="'+(h*0.66)+'" font-size="'+(h*0.5)+'">'+c[1]+'</text><text x="'+(h>150?24:20)+'" y="'+(h-12)+'" font-size="'+(h>150?15:12)+'" font-weight="700" fill="#fff3e0" font-family="system-ui">'+j[1]+'</text></svg>'}
+
+// ---- list ----
+function stats(){$("s1").textContent=J.length;$("s2").textContent=J.filter(function(j){return j[8]}).length;$("s3").textContent=J.filter(function(j){return j[15]}).length}
+function chips(){var h='<button class="chip on" data-c="all">Semua</button>';for(var k in CATS)h+='<button class="chip" data-c="'+k+'">'+CATS[k][1]+' '+CATS[k][0]+'</button>';$("chips").innerHTML=h;
+ $("chips").onclick=function(e){var b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;[].forEach.call(document.querySelectorAll(".chip"),function(x){x.classList.toggle("on",x===b)});list()}}
+function list(){var q=$("q").value.toLowerCase(),s=$("sort").value;
+ var a=J.map(function(j,i){return[j,i]}).filter(function(p){var j=p[0];return(cat=="all"||j[2]==cat)&&(j.join(" ").toLowerCase().indexOf(q)>-1)});
+ if(s==1)a.sort(function(x,y){return x[0][0].localeCompare(y[0][0])});
+ if(s==2)a.sort(function(x,y){return y[0][8]-x[0][8]});
+ $("grid").innerHTML=a.length?a.map(function(p){var j=p[0];return '<article class="card" tabindex="0" data-i="'+p[1]+'">'+art(j,120)+'<div class="cb"><div><span class="tag">SINTA '+j[14]+'</span><span class="tag">'+CATS[j[2]][0]+'</span></div><h3>'+j[0]+'</h3><div class="mut">💰 '+j[7].split(";")[0]+'</div><div class="mut">🗓 '+j[9]+'</div><div class="more">Lihat detail →</div></div></article>'}).join(""):'<p class="mut">Tidak ada jurnal yang cocok.</p>'}
+$("grid").onclick=function(e){var c=e.target.closest(".card");if(c)location.hash="j"+c.dataset.i};
+$("grid").onkeydown=function(e){if(e.key=="Enter"){var c=e.target.closest(".card");if(c)location.hash="j"+c.dataset.i}};
+$("q").oninput=list;$("sort").onchange=list;
+
+// ---- detail ----
+function cell(t,v,f){return '<div class="cell'+(f?' full':'')+'"><small>'+t+'</small>'+v+'</div>'}
+function show(i){var j=J[i],p=(i+J.length-1)%J.length,n=(i+1)%J.length;
+ $("dbody").innerHTML='<button class="back" onclick="location.hash=\'\'">← Kembali ke daftar</button><div class="dh">'+art(j,190)+'<div class="dt"><span class="tag">SINTA '+j[14]+'</span><span class="tag">'+CATS[j[2]][0]+'</span><h2>'+j[0]+' ('+j[1]+')</h2></div></div><div class="tbl">'+
+ cell("Ruang Lingkup",j[6],1)+cell("p-ISSN",j[4])+cell("e-ISSN",j[5])+cell("APC / Biaya",j[7])+cell("Frekuensi &amp; Bulan Terbit",j[9])+cell("Bahasa",j[10])+cell("Penerbit",j[11])+cell("Review / Waktu Publikasi",j[12])+cell("Scopus &amp; Quartile","Belum terverifikasi • Quartile —")+cell("Peringkat SINTA",j[14]=="?"?"Belum terkonfirmasi":"SINTA "+j[14])+'</div>'+
+ '<div class="warn"><b>⚠ Catatan verifikasi</b><ul>'+j[13].map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul></div><a class="link" href="'+j[3]+'" target="_blank" rel="noopener">🔗 Buka situs resmi jurnal ↗</a>'+
+ '<div class="nav"><button onclick="location.hash=\'j'+p+'\'">← '+J[p][1]+'</button><button onclick="location.hash=\'j'+n+'\'">'+J[n][1]+' →</button></div>'}
+function route(){var m=/^#j(\d+)$/.exec(location.hash),i=m?+m[1]:-1;
+ if(i>=0&&J[i]){$("home").style.display="none";$("detail").style.display="block";show(i)}
+ else{$("home").style.display="block";$("detail").style.display="none"}
+ window.scrollTo(0,0)}
+window.addEventListener("hashchange",route);
+
+// ---- sun rays + background embers ----
+(function(){var r="";for(var i=0;i<16;i++)r+='<polygon points="200,10 212,70 188,70" fill="'+(i%2?"#ff7a00":"#e8281c")+'" transform="rotate('+(i*22.5)+' 200 200)"/>';$("rays").innerHTML=r})();
+(function(){var c=$("bg"),x=c.getContext("2d"),P=[],W,H;
+ function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener("resize",rs);
+ for(var i=0;i<60;i++)P.push({x:Math.random()*2000,y:Math.random()*1200,r:Math.random()*2.6+.6,v:Math.random()*.6+.2,d:Math.random()*2});
+ (function f(){x.clearRect(0,0,W,H);P.forEach(function(p){p.y-=p.v;p.x+=Math.sin(p.y/60+p.d)*.4;if(p.y<-10){p.y=H+10;p.x=Math.random()*W}
+ x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fillStyle="rgba(255,"+(120+p.r*30|0)+",0,"+(.25+p.r/6)+")";x.shadowColor="#ff7a00";x.shadowBlur=8;x.fill()});requestAnimationFrame(f)})()})();
+
+stats();chips();list();route();
+</script>
+</body>
+</html>
